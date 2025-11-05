@@ -1,0 +1,146 @@
+import { X } from 'lucide-react';
+import { useStore } from '../store/useStore';
+import { allPresets } from '../presets/presetGenerator';
+import { sequencerEngine } from '../engine/SequencerEngine';
+import { timingEngine } from '../engine/TimingEngine';
+import type { Track } from '../types';
+
+export const PresetsModal = () => {
+  const { showPresets, setShowPresets, stop } = useStore();
+
+  if (!showPresets) return null;
+
+  const loadPreset = (presetIndex: number) => {
+    const preset = allPresets[presetIndex];
+
+    // Stop playback
+    stop();
+
+    // Clear existing tracks
+    const currentTracks = useStore.getState().tracks;
+    currentTracks.forEach(track => {
+      sequencerEngine.removeTrack(track.id);
+    });
+
+    // Create new tracks from preset
+    const newTracks: Track[] = preset.tracks.map((partialTrack, index) => {
+      const track: Track = {
+        id: `track-${Date.now()}-${index}`,
+        name: partialTrack.name || `Track ${index + 1}`,
+        steps: partialTrack.steps || [],
+        midiChannel: partialTrack.midiChannel || 1,
+        midiNote: partialTrack.midiNote || 36,
+        midiDevice: null,
+        midiDeviceName: 'Not assigned',
+        clockDivider: partialTrack.clockDivider || 1,
+        offset: partialTrack.offset || 0,
+        currentStep: 0,
+        playCount: 0,
+        muted: false,
+        solo: false,
+        volume: partialTrack.volume || 100,
+        lfo: partialTrack.lfo || {
+          enabled: false,
+          rate: 0.5,
+          depth: 50,
+          shape: 'triangle',
+          phase: 0,
+        },
+        muteLearnNote: null,
+        soloLearnNote: null,
+        arpEnabled: partialTrack.arpEnabled || false,
+        arpMode: partialTrack.arpMode || 'up',
+        arpNotes: partialTrack.arpNotes || [],
+        arpOctaves: 1,
+        swingAmount: partialTrack.swingAmount || 0,
+        color: partialTrack.color || '#3b82f6',
+      };
+
+      sequencerEngine.addTrack(track);
+      return track;
+    });
+
+    // Update store
+    useStore.setState({
+      tracks: newTracks,
+      bpm: preset.bpm,
+      swing: preset.swing,
+    });
+
+    // Update engines
+    timingEngine.setBPM(preset.bpm);
+    sequencerEngine.setGlobalSwing(preset.swing);
+
+    setShowPresets(false);
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-8">
+      <div className="bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden border-2 border-gray-700">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-gray-700">
+          <div>
+            <h2 className="text-2xl font-bold text-white">AI-Powered Presets</h2>
+            <p className="text-sm text-gray-400 mt-1">
+              Start with a genre template and customize to your taste
+            </p>
+          </div>
+          <button
+            onClick={() => setShowPresets(false)}
+            className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+          >
+            <X size={24} className="text-gray-400" />
+          </button>
+        </div>
+
+        {/* Presets Grid */}
+        <div className="p-6 overflow-y-auto max-h-[calc(80vh-120px)]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {allPresets.map((preset, index) => (
+              <button
+                key={index}
+                onClick={() => loadPreset(index)}
+                className="text-left p-6 bg-gray-900 rounded-xl border-2 border-gray-700 hover:border-purple-500 transition-all group"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="text-lg font-bold text-white group-hover:text-purple-400 transition-colors">
+                      {preset.name}
+                    </h3>
+                    <p className="text-sm text-purple-400 font-medium">{preset.genre}</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-sm text-gray-400">BPM</div>
+                    <div className="text-xl font-bold text-white">{preset.bpm}</div>
+                  </div>
+                </div>
+
+                <p className="text-sm text-gray-400 mb-4">{preset.description}</p>
+
+                <div className="flex flex-wrap gap-2">
+                  {preset.tracks.map((track, i) => (
+                    <div
+                      key={i}
+                      className="px-2 py-1 rounded text-xs font-medium"
+                      style={{
+                        backgroundColor: `${track.color}20`,
+                        color: track.color,
+                      }}
+                    >
+                      {track.name}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-4 pt-4 border-t border-gray-800 flex items-center justify-between text-xs text-gray-500">
+                  <span>{preset.tracks.length} tracks</span>
+                  <span>Swing: {preset.swing}%</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
