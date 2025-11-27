@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { useStore } from '../store/useStore';
 
@@ -11,7 +12,7 @@ export const SettingsModal = () => {
   const inputDevices = midiDevices.filter(d => d.type === 'input');
   const outputDevices = midiDevices.filter(d => d.type === 'output');
 
-  return (
+  return createPortal(
     <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999] p-8">
       <div className="bg-[#1a1f2e] rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden border border-gray-700/50">
         {/* Header */}
@@ -113,6 +114,7 @@ export const SettingsModal = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
