@@ -126,7 +126,11 @@ export const Transport = () => {
           {/* Right: Actions */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setShowPresets(true)}
+              onClick={() => {
+                console.log('Presets button clicked, calling setShowPresets(true)');
+                setShowPresets(true);
+                console.log('setShowPresets(true) called, current state:', useStore.getState().showPresets);
+              }}
               className="px-4 py-2 bg-purple-500/90 hover:bg-purple-500 text-white rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-purple-500/20"
               title="Genre Presets"
             >
@@ -170,7 +174,11 @@ export const Transport = () => {
             />
 
             <button
-              onClick={() => setShowSettings(true)}
+              onClick={() => {
+                console.log('Settings button clicked, calling setShowSettings(true)');
+                setShowSettings(true);
+                console.log('setShowSettings(true) called, current state:', useStore.getState().showSettings);
+              }}
               className="px-4 py-2 bg-gray-700/50 hover:bg-gray-600/60 text-gray-200 rounded-lg transition-all"
               title="Settings"
             >

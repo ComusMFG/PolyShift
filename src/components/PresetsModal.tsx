@@ -8,7 +8,14 @@ import type { Track } from '../types';
 export const PresetsModal = () => {
   const { showPresets, setShowPresets, stop } = useStore();
 
-  if (!showPresets) return null;
+  console.log('PresetsModal render, showPresets:', showPresets);
+
+  if (!showPresets) {
+    console.log('PresetsModal: returning null because showPresets is false');
+    return null;
+  }
+
+  console.log('PresetsModal: rendering modal content');
 
   const loadPreset = (presetIndex: number) => {
     const preset = allPresets[presetIndex];
@@ -81,10 +88,15 @@ export const PresetsModal = () => {
         backgroundColor: 'rgba(0, 0, 0, 0.9)',
         zIndex: 999999
       }}
+      onClick={() => {
+        console.log('Modal overlay clicked');
+        setShowPresets(false);
+      }}
     >
       <div
         className="bg-[#1a1f2e] rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-700/50 flex flex-col"
         style={{ maxHeight: '90vh' }}
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-700 flex-shrink-0">

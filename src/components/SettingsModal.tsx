@@ -4,7 +4,14 @@ import { useStore } from '../store/useStore';
 export const SettingsModal = () => {
   const { showSettings, setShowSettings, midiDevices } = useStore();
 
-  if (!showSettings) return null;
+  console.log('SettingsModal render, showSettings:', showSettings);
+
+  if (!showSettings) {
+    console.log('SettingsModal: returning null because showSettings is false');
+    return null;
+  }
+
+  console.log('SettingsModal: rendering modal content');
 
   const inputDevices = midiDevices.filter(d => d.type === 'input');
   const outputDevices = midiDevices.filter(d => d.type === 'output');
@@ -16,10 +23,15 @@ export const SettingsModal = () => {
         backgroundColor: 'rgba(0, 0, 0, 0.9)',
         zIndex: 999999
       }}
+      onClick={() => {
+        console.log('Settings modal overlay clicked');
+        setShowSettings(false);
+      }}
     >
       <div
         className="bg-[#1a1f2e] rounded-2xl shadow-2xl w-full max-w-2xl border border-gray-700/50 flex flex-col"
         style={{ maxHeight: '90vh' }}
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-700 flex-shrink-0">
