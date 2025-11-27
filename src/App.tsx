@@ -18,8 +18,37 @@ function App() {
     }
   }, [midiInitialized, initializeMIDI]);
 
+  const { showPresets, showSettings } = useStore();
+
   return (
     <>
+      {/* DEBUG: Direct test element */}
+      {showPresets && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'red',
+          zIndex: 999999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <div style={{
+            backgroundColor: 'yellow',
+            color: 'black',
+            padding: '50px',
+            fontSize: '48px',
+            fontWeight: 'bold',
+            border: '10px solid blue'
+          }}>
+            DIRECT TEST - CAN YOU SEE THIS?
+          </div>
+        </div>
+      )}
+
       <div className="min-h-screen bg-[#0f1419] text-white">
         <Transport />
 
