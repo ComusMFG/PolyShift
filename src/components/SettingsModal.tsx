@@ -1,4 +1,3 @@
-import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { useStore } from '../store/useStore';
 
@@ -10,7 +9,7 @@ export const SettingsModal = () => {
   const inputDevices = midiDevices.filter(d => d.type === 'input');
   const outputDevices = midiDevices.filter(d => d.type === 'output');
 
-  return createPortal(
+  return (
     <div
       className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center p-4"
       style={{
@@ -121,7 +120,6 @@ export const SettingsModal = () => {
           </div>
         </div>
       </div>
-    </div>,
-    document.body
+    </div>
   );
 };

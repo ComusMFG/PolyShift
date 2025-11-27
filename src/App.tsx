@@ -19,8 +19,9 @@ function App() {
   }, [midiInitialized, initializeMIDI]);
 
   return (
-    <div className="min-h-screen bg-[#0f1419] text-white">
-      <Transport />
+    <>
+      <div className="min-h-screen bg-[#0f1419] text-white">
+        <Transport />
 
       <main className="max-w-[1800px] mx-auto p-6">
         {tracks.length === 0 ? (
@@ -59,9 +60,6 @@ function App() {
         )}
       </main>
 
-      <PresetsModal />
-      <SettingsModal />
-
       {/* Footer */}
       <footer className="border-t border-gray-800 py-4 text-center text-sm text-gray-500 mt-12">
         <p>
@@ -72,6 +70,10 @@ function App() {
         </p>
       </footer>
     </div>
+
+    <PresetsModal />
+    <SettingsModal />
+  </>
   );
 }
 
