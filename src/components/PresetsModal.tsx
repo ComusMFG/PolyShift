@@ -85,14 +85,28 @@ export const PresetsModal = () => {
     <div
       className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center p-4"
       style={{
-        backgroundColor: 'rgba(0, 0, 0, 0.9)',
-        zIndex: 999999
+        backgroundColor: 'rgba(255, 0, 0, 0.9)',
+        zIndex: 999999,
+        border: '10px solid lime',
       }}
       onClick={() => {
         console.log('Modal overlay clicked');
         setShowPresets(false);
       }}
     >
+      <div style={{
+        position: 'absolute',
+        top: '50px',
+        left: '50px',
+        backgroundColor: 'yellow',
+        color: 'black',
+        padding: '20px',
+        fontSize: '24px',
+        zIndex: 9999999,
+        border: '5px solid blue'
+      }}>
+        TEST - CAN YOU SEE THIS?
+      </div>
       <div
         className="bg-[#1a1f2e] rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-700/50 flex flex-col"
         style={{ maxHeight: '90vh' }}
