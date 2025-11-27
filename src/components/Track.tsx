@@ -125,22 +125,22 @@ export const Track = ({ track, isPlaying }: TrackProps) => {
             className="bg-gray-800/50 text-white px-2 py-1 rounded text-xs border border-gray-700/50 focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50"
             title="Clock multiplier/divider"
           >
-            <option value={0.125}>1/32</option>
-            <option value={0.25}>1/16</option>
-            <option value={0.333}>1/12 (triplet)</option>
-            <option value={0.5}>1/8</option>
-            <option value={0.667}>1/6 (triplet)</option>
-            <option value={1}>1/4</option>
-            <option value={1.333}>1/3 (triplet)</option>
+            <option value={0.125}>8x</option>
+            <option value={0.25}>4x</option>
+            <option value={0.333}>3x (triplet)</option>
+            <option value={0.5}>2x</option>
+            <option value={0.667}>1.5x (triplet)</option>
+            <option value={1}>1x</option>
+            <option value={1.333}>3/4 (triplet)</option>
             <option value={2}>1/2</option>
-            <option value={3}>3/4 (dotted)</option>
-            <option value={4}>1x</option>
-            <option value={6}>1.5x</option>
-            <option value={8}>2x</option>
-            <option value={12}>3x</option>
-            <option value={16}>4x</option>
-            <option value={24}>6x</option>
-            <option value={32}>8x</option>
+            <option value={3}>1/3 (dotted)</option>
+            <option value={4}>1/4</option>
+            <option value={6}>1/6</option>
+            <option value={8}>1/8</option>
+            <option value={12}>1/12</option>
+            <option value={16}>1/16</option>
+            <option value={24}>1/24</option>
+            <option value={32}>1/32</option>
           </select>
 
           {/* LFO Indicator */}

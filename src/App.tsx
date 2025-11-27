@@ -429,16 +429,6 @@ function App() {
           </div>
         )}
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-800 py-4 text-center text-sm text-gray-500 mt-12">
-        <p>
-          PolyShift - Polyrhythmic MIDI Sequencer | Web MIDI API Required
-        </p>
-        <p className="text-xs mt-1">
-          Best experienced in Chrome, Edge, or Opera
-        </p>
-      </footer>
     </div>
   </>
   );
