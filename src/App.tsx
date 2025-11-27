@@ -9,29 +9,13 @@ import './App.css';
 function App() {
   const { tracks, playing, midiInitialized, initializeMIDI } = useStore();
 
-  // Initialize on mount
+  // Initialize MIDI on mount
   useEffect(() => {
-    const init = async () => {
-      if (!midiInitialized) {
-        try {
-          await initializeMIDI();
-        } catch (err) {
-          console.error('Failed to initialize MIDI:', err);
-        }
-      }
-    };
-
-    // Try to initialize on first click (required for Web Audio/MIDI API)
-    const handleFirstInteraction = () => {
-      init();
-      document.removeEventListener('click', handleFirstInteraction);
-    };
-
-    document.addEventListener('click', handleFirstInteraction);
-
-    return () => {
-      document.removeEventListener('click', handleFirstInteraction);
-    };
+    if (!midiInitialized) {
+      initializeMIDI().catch(err => {
+        console.error('Failed to initialize MIDI:', err);
+      });
+    }
   }, [midiInitialized, initializeMIDI]);
 
   return (

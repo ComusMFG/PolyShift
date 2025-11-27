@@ -1,6 +1,6 @@
 import { Play, Pause, RotateCcw, Plus, Save, FolderOpen, Sparkles, Settings } from 'lucide-react';
 import { useStore } from '../store/useStore';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 export const Transport = () => {
   const {
@@ -17,17 +17,9 @@ export const Transport = () => {
     saveProject,
     setShowPresets,
     setShowSettings,
-    initializeMIDI,
   } = useStore();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Initialize MIDI on mount
-  useEffect(() => {
-    if (!midiInitialized) {
-      initializeMIDI();
-    }
-  }, [midiInitialized, initializeMIDI]);
 
   const handleLoadProject = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
