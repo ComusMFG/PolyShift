@@ -141,14 +141,16 @@ export class SequencerEngine {
   }
 
   private calculateSwingOffset(track: Track): number {
-    // Combine global and track swing
-    const totalSwing = ((this.globalSwing + track.swingAmount) / 200) * 100;
+    // Combine global and track swing (0-100 scale)
+    const totalSwing = Math.min(100, this.globalSwing + track.swingAmount);
 
-    // Apply swing to even-numbered 16th notes (steps 1, 3, 5, etc.)
-    const stepInBeat = track.currentStep % 4;
-    if (stepInBeat % 2 === 1) {
+    // Apply swing to off-beat 16th notes (steps 1, 3, 5, 7, etc.)
+    // Swing delays these steps to create a shuffle/swing feel
+    const stepInBeat = track.currentStep % 2;
+    if (stepInBeat === 1) {
       // Swing: delay by percentage of step length
-      return (totalSwing / 100) * (TICKS_PER_STEP / 2);
+      // 0% swing = no delay, 50% swing = halfway between steps (triplet), 100% swing = full step delay
+      return (totalSwing / 100) * (TICKS_PER_STEP / track.clockDivider);
     }
 
     return 0;

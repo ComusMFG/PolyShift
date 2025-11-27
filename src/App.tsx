@@ -20,6 +20,29 @@ function App() {
     }
   }, [midiInitialized, initializeMIDI]);
 
+  // Add spacebar play/stop functionality
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only trigger if not typing in an input field
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      if (e.code === 'Space') {
+        e.preventDefault();
+        const { playing, play, stop } = useStore.getState();
+        if (playing) {
+          stop();
+        } else {
+          play();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const { showPresets, showSettings, setShowPresets, setShowSettings, stop, midiDevices } = useStore();
 
   const loadPreset = (presetIndex: number) => {
