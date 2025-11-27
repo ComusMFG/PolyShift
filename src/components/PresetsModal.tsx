@@ -9,8 +9,6 @@ import type { Track } from '../types';
 export const PresetsModal = () => {
   const { showPresets, setShowPresets, stop } = useStore();
 
-  console.log('PresetsModal render, showPresets:', showPresets);
-
   if (!showPresets) return null;
 
   const loadPreset = (presetIndex: number) => {
@@ -78,8 +76,17 @@ export const PresetsModal = () => {
   };
 
   return createPortal(
-    <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
-      <div className="bg-[#1a1f2e] rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-700/50 flex flex-col" style={{ maxHeight: '90vh' }}>
+    <div
+      className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center p-4"
+      style={{
+        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+        zIndex: 999999
+      }}
+    >
+      <div
+        className="bg-[#1a1f2e] rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-700/50 flex flex-col"
+        style={{ maxHeight: '90vh' }}
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-700 flex-shrink-0">
           <div>
