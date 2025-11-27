@@ -419,6 +419,12 @@ export const useStore = create<AppState>((set, get) => ({
     }
   },
 
-  setShowSettings: (show) => set({ showSettings: show }),
-  setShowPresets: (show) => set({ showPresets: show }),
+  setShowSettings: (show) => {
+    console.log('setShowSettings called with:', show);
+    set({ showSettings: show });
+  },
+  setShowPresets: (show) => {
+    console.log('setShowPresets called with:', show);
+    set({ showPresets: show });
+  },
 }));

@@ -4,6 +4,8 @@ import { useStore } from '../store/useStore';
 export const SettingsModal = () => {
   const { showSettings, setShowSettings, midiDevices } = useStore();
 
+  console.log('SettingsModal render, showSettings:', showSettings);
+
   if (!showSettings) return null;
 
   const inputDevices = midiDevices.filter(d => d.type === 'input');

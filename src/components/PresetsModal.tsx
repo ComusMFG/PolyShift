@@ -8,6 +8,8 @@ import type { Track } from '../types';
 export const PresetsModal = () => {
   const { showPresets, setShowPresets, stop } = useStore();
 
+  console.log('PresetsModal render, showPresets:', showPresets);
+
   if (!showPresets) return null;
 
   const loadPreset = (presetIndex: number) => {
