@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { Transport } from './components/Transport';
 import { Track } from './components/Track';
-import { PresetsModal } from './components/PresetsModal';
-import { SettingsModal } from './components/SettingsModal';
 import { useStore } from './store/useStore';
 import './App.css';
 
@@ -18,33 +16,136 @@ function App() {
     }
   }, [midiInitialized, initializeMIDI]);
 
-  const { showPresets, showSettings } = useStore();
+  const { showPresets, showSettings, setShowPresets, setShowSettings } = useStore();
 
   return (
     <>
-      {/* DEBUG: Direct test element */}
+      {/* Presets Modal */}
       {showPresets && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          backgroundColor: 'red',
-          zIndex: 999999,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <div style={{
-            backgroundColor: 'yellow',
-            color: 'black',
-            padding: '50px',
-            fontSize: '48px',
-            fontWeight: 'bold',
-            border: '10px solid blue'
-          }}>
-            DIRECT TEST - CAN YOU SEE THIS?
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            zIndex: 999999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px'
+          }}
+          onClick={() => setShowPresets(false)}
+        >
+          <div
+            style={{
+              backgroundColor: '#1a1f2e',
+              borderRadius: '16px',
+              maxWidth: '1024px',
+              width: '100%',
+              maxHeight: '90vh',
+              border: '1px solid rgba(107, 114, 128, 0.5)',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div style={{ padding: '24px', borderBottom: '1px solid rgb(55, 65, 81)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'white', margin: 0 }}>Genre Presets</h2>
+                <p style={{ fontSize: '14px', color: 'rgb(156, 163, 175)', marginTop: '4px' }}>
+                  Start with a pre-made genre template and customize to your taste
+                </p>
+              </div>
+              <button
+                onClick={() => setShowPresets(false)}
+                style={{
+                  padding: '8px',
+                  background: 'transparent',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  color: 'rgb(156, 163, 175)'
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Content */}
+            <div style={{ padding: '24px', overflow: 'auto', flex: 1 }}>
+              <p style={{ color: 'white', textAlign: 'center' }}>
+                Preset selection will be implemented here
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Settings Modal */}
+      {showSettings && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            zIndex: 999999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '16px'
+          }}
+          onClick={() => setShowSettings(false)}
+        >
+          <div
+            style={{
+              backgroundColor: '#1a1f2e',
+              borderRadius: '16px',
+              maxWidth: '768px',
+              width: '100%',
+              maxHeight: '90vh',
+              border: '1px solid rgba(107, 114, 128, 0.5)',
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div style={{ padding: '24px', borderBottom: '1px solid rgb(55, 65, 81)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: 'white', margin: 0 }}>Settings</h2>
+                <p style={{ fontSize: '14px', color: 'rgb(156, 163, 175)', marginTop: '4px' }}>
+                  Configure PolyShift preferences
+                </p>
+              </div>
+              <button
+                onClick={() => setShowSettings(false)}
+                style={{
+                  padding: '8px',
+                  background: 'transparent',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  color: 'rgb(156, 163, 175)'
+                }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Content */}
+            <div style={{ padding: '24px', overflow: 'auto', flex: 1 }}>
+              <p style={{ color: 'white', textAlign: 'center' }}>
+                Settings content will be implemented here
+              </p>
+            </div>
           </div>
         </div>
       )}
@@ -99,9 +200,6 @@ function App() {
         </p>
       </footer>
     </div>
-
-    <PresetsModal />
-    <SettingsModal />
   </>
   );
 }
