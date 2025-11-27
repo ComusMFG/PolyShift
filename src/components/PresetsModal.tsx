@@ -78,10 +78,10 @@ export const PresetsModal = () => {
   };
 
   return createPortal(
-    <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999] p-8">
-      <div className="bg-[#1a1f2e] rounded-2xl shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden border border-gray-700/50">
+    <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+      <div className="bg-[#1a1f2e] rounded-2xl shadow-2xl w-full max-w-4xl border border-gray-700/50 flex flex-col" style={{ maxHeight: '90vh' }}>
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-700">
+        <div className="flex items-center justify-between p-6 border-b border-gray-700 flex-shrink-0">
           <div>
             <h2 className="text-2xl font-bold text-white">Genre Presets</h2>
             <p className="text-sm text-gray-400 mt-1">
@@ -97,7 +97,7 @@ export const PresetsModal = () => {
         </div>
 
         {/* Presets Grid */}
-        <div className="p-6 overflow-y-auto max-h-[calc(80vh-120px)]">
+        <div className="p-6 overflow-y-auto flex-1">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {allPresets.map((preset, index) => (
               <button

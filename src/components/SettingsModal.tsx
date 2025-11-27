@@ -13,10 +13,10 @@ export const SettingsModal = () => {
   const outputDevices = midiDevices.filter(d => d.type === 'output');
 
   return createPortal(
-    <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999] p-8">
-      <div className="bg-[#1a1f2e] rounded-2xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden border border-gray-700/50">
+    <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999] p-4">
+      <div className="bg-[#1a1f2e] rounded-2xl shadow-2xl w-full max-w-2xl border border-gray-700/50 flex flex-col" style={{ maxHeight: '90vh' }}>
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-700">
+        <div className="flex items-center justify-between p-6 border-b border-gray-700 flex-shrink-0">
           <div>
             <h2 className="text-2xl font-bold text-white">Settings</h2>
             <p className="text-sm text-gray-400 mt-1">
@@ -32,7 +32,7 @@ export const SettingsModal = () => {
         </div>
 
         {/* Content */}
-        <div className="p-6 overflow-y-auto max-h-[calc(80vh-120px)]">
+        <div className="p-6 overflow-y-auto flex-1">
           <div className="space-y-6">
             {/* MIDI Devices Section */}
             <div>
