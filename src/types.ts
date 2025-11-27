@@ -41,6 +41,7 @@ export interface Track {
   muted: boolean;
   solo: boolean;
   volume: number; // 0-127 (MIDI velocity multiplier)
+  recordArmed: boolean; // For tap-in recording
 
   // LFO
   lfo: LFO;

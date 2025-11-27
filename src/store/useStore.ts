@@ -93,6 +93,7 @@ const createDefaultTrack = (id: string, index: number): Track => {
     muted: false,
     solo: false,
     volume: 100,
+    recordArmed: false,
     lfo: {
       enabled: false,
       rate: 0.5,

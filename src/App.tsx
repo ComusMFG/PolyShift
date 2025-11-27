@@ -20,7 +20,7 @@ function App() {
     }
   }, [midiInitialized, initializeMIDI]);
 
-  // Add spacebar play/stop functionality
+  // Add keyboard shortcuts (spacebar and 'x' key)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Only trigger if not typing in an input field
@@ -28,6 +28,7 @@ function App() {
         return;
       }
 
+      // Spacebar: Play/Stop
       if (e.code === 'Space') {
         e.preventDefault();
         const { playing, play, stop } = useStore.getState();
@@ -36,6 +37,19 @@ function App() {
         } else {
           play();
         }
+      }
+
+      // 'X' key: Tap-in recording for armed tracks
+      if (e.key === 'x' || e.key === 'X') {
+        e.preventDefault();
+        const { tracks, toggleStep } = useStore.getState();
+
+        // Toggle current step for all armed tracks
+        tracks.forEach(track => {
+          if (track.recordArmed) {
+            toggleStep(track.id, track.currentStep);
+          }
+        });
       }
     };
 
@@ -72,6 +86,7 @@ function App() {
         muted: false,
         solo: false,
         volume: partialTrack.volume || 100,
+        recordArmed: false,
         lfo: partialTrack.lfo || {
           enabled: false,
           rate: 0.5,

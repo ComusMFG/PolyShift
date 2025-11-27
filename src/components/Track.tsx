@@ -9,6 +9,7 @@ import {
   Copy,
   Zap,
   Waves,
+  Circle,
 } from 'lucide-react';
 import { StepButton } from './StepButton';
 import { StepEditor } from './StepEditor';
@@ -47,6 +48,10 @@ export const Track = ({ track, isPlaying }: TrackProps) => {
 
   const handleSoloToggle = () => {
     updateTrack(track.id, { solo: !track.solo });
+  };
+
+  const handleRecordArmToggle = () => {
+    updateTrack(track.id, { recordArmed: !track.recordArmed });
   };
 
   const effectivelyMuted = track.muted || (hasSolo && !track.solo);
@@ -231,16 +236,29 @@ export const Track = ({ track, isPlaying }: TrackProps) => {
             onClick={handleSoloToggle}
             className={`px-3 py-1 rounded text-xs font-medium transition-all ${
               track.solo
-                ? 'bg-yellow-500 text-black'
+                ? 'bg-yellow-500 text-black shadow-lg shadow-yellow-500/50 animate-pulse'
                 : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
             }`}
             onContextMenu={(e) => {
               e.preventDefault();
               startMIDILearn(track.id, 'solo');
             }}
-            title={`Solo ${track.soloLearnNote ? `(${track.soloLearnNote})` : '(right-click to learn)'}`}
+            title={`Solo ${track.solo ? '(ACTIVE)' : ''} ${track.soloLearnNote ? `Note: ${track.soloLearnNote}` : '(right-click to learn)'}`}
           >
-            <Radio size={14} />
+            <Radio size={14} className={track.solo ? 'fill-current' : ''} />
+          </button>
+
+          {/* Record Arm */}
+          <button
+            onClick={handleRecordArmToggle}
+            className={`px-3 py-1 rounded text-xs font-medium transition-all ${
+              track.recordArmed
+                ? 'bg-red-500 text-white shadow-lg shadow-red-500/50'
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+            }`}
+            title={`Record Arm ${track.recordArmed ? '(ARMED - Press X to tap in)' : '(Click to arm for recording)'}`}
+          >
+            <Circle size={14} className={track.recordArmed ? 'fill-current animate-pulse' : ''} />
           </button>
         </div>
 
