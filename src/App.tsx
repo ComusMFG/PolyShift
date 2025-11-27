@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Transport } from './components/Transport';
 import { Track } from './components/Track';
 import { PresetsModal } from './components/PresetsModal';
+import { SettingsModal } from './components/SettingsModal';
 import { useStore } from './store/useStore';
 import './App.css';
 
@@ -34,7 +35,7 @@ function App() {
   }, [midiInitialized, initializeMIDI]);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div className="min-h-screen bg-[#0f1419] text-white">
       <Transport />
 
       <main className="max-w-[1800px] mx-auto p-6">
@@ -75,6 +76,7 @@ function App() {
       </main>
 
       <PresetsModal />
+      <SettingsModal />
 
       {/* Footer */}
       <footer className="border-t border-gray-800 py-4 text-center text-sm text-gray-500 mt-12">

@@ -41,6 +41,7 @@ interface AppState {
   updateTrack: (trackId: string, updates: Partial<Track>) => void;
   duplicateTrack: (trackId: string) => void;
   selectTrack: (trackId: string | null) => void;
+  updateTrackCurrentStep: (trackId: string, currentStep: number) => void;
 
   toggleStep: (trackId: string, stepIndex: number) => void;
   updateStep: (trackId: string, stepIndex: number, updates: Partial<Step>) => void;
@@ -146,6 +147,11 @@ export const useStore = create<AppState>((set, get) => ({
       ];
       set({ midiDevices: devices, midiInitialized: true });
 
+      // Set up callback for real-time step updates
+      sequencerEngine.setStoreUpdateCallback((trackId, currentStep) => {
+        get().updateTrackCurrentStep(trackId, currentStep);
+      });
+
       // Initialize tracks in sequencer
       get().tracks.forEach(track => {
         sequencerEngine.addTrack(track);
@@ -229,6 +235,14 @@ export const useStore = create<AppState>((set, get) => ({
 
   selectTrack: (trackId) => {
     set({ selectedTrackId: trackId });
+  },
+
+  updateTrackCurrentStep: (trackId, currentStep) => {
+    set(state => ({
+      tracks: state.tracks.map(t =>
+        t.id === trackId ? { ...t, currentStep } : t
+      ),
+    }));
   },
 
   toggleStep: (trackId, stepIndex) => {

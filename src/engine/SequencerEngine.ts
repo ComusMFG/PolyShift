@@ -12,6 +12,7 @@ export class SequencerEngine {
   private lfoPhases: Map<string, number> = new Map(); // Current LFO phase per track
   private globalSwing: number = 0; // 0-100
   private unsubscribeTiming: (() => void) | null = null;
+  private storeUpdateCallback: ((trackId: string, currentStep: number) => void) | null = null;
 
   constructor() {
     // Subscribe to timing engine
@@ -49,7 +50,13 @@ export class SequencerEngine {
     const step = track.steps[effectiveStep];
 
     // Update current step for UI
+    const previousStep = track.currentStep;
     track.currentStep = effectiveStep;
+
+    // Notify store if step changed
+    if (previousStep !== effectiveStep && this.storeUpdateCallback) {
+      this.storeUpdateCallback(track.id, effectiveStep);
+    }
 
     // Check step condition
     if (!this.evaluateStepCondition(step, track.playCount)) {
@@ -243,6 +250,10 @@ export class SequencerEngine {
   }
 
   // Public API
+  public setStoreUpdateCallback(callback: (trackId: string, currentStep: number) => void) {
+    this.storeUpdateCallback = callback;
+  }
+
   public addTrack(track: Track) {
     this.tracks.set(track.id, track);
     this.trackStepTimers.set(track.id, -TICKS_PER_STEP);

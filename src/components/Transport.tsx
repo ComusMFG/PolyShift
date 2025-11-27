@@ -47,7 +47,7 @@ export const Transport = () => {
   };
 
   return (
-    <div className="bg-gray-800 border-b-2 border-gray-700 px-6 py-4">
+    <div className="bg-[#1a1f2e] border-b border-gray-800 px-6 py-4 shadow-lg">
       <div className="max-w-[1800px] mx-auto">
         <div className="flex items-center justify-between">
           {/* Left: Logo & Transport */}
@@ -59,14 +59,14 @@ export const Transport = () => {
               <p className="text-xs text-gray-400">Polyrhythmic MIDI Sequencer</p>
             </div>
 
-            <div className="flex items-center gap-2 pl-6 border-l border-gray-700">
+            <div className="flex items-center gap-2 pl-6 border-l border-gray-700/50">
               <button
                 onClick={playing ? stop : play}
                 disabled={!midiInitialized}
                 className={`px-4 py-2 rounded-lg font-medium transition-all ${
                   playing
-                    ? 'bg-red-600 hover:bg-red-700 text-white'
-                    : 'bg-green-600 hover:bg-green-700 text-white'
+                    ? 'bg-red-500/90 hover:bg-red-500 text-white shadow-lg shadow-red-500/20'
+                    : 'bg-green-500/90 hover:bg-green-500 text-white shadow-lg shadow-green-500/20'
                 } disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2`}
               >
                 {playing ? (
@@ -84,7 +84,7 @@ export const Transport = () => {
 
               <button
                 onClick={sync}
-                className="px-4 py-2 rounded-lg font-medium bg-gray-700 hover:bg-gray-600 text-white transition-all flex items-center gap-2"
+                className="px-4 py-2 rounded-lg font-medium bg-gray-700/50 hover:bg-gray-600/60 text-gray-200 transition-all flex items-center gap-2"
                 title="Resync all tracks"
               >
                 <RotateCcw size={18} />
@@ -104,11 +104,11 @@ export const Transport = () => {
                   onChange={(e) => setBPM(parseInt(e.target.value) || 120)}
                   min={20}
                   max={300}
-                  className="bg-gray-700 text-white px-3 py-2 rounded-lg text-lg font-mono w-20 focus:outline-none focus:ring-2 focus:ring-white"
+                  className="bg-gray-800/50 text-white px-3 py-2 rounded-lg text-lg font-mono w-20 border border-gray-700/50 focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50"
                 />
                 <button
                   onClick={handleTapTempo}
-                  className="px-3 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-xs transition-all"
+                  className="px-3 py-2 bg-gray-700/50 hover:bg-gray-600/60 text-gray-200 rounded-lg text-xs transition-all"
                   title="Tap tempo"
                 >
                   TAP
@@ -135,8 +135,8 @@ export const Transport = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowPresets(true)}
-              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all flex items-center gap-2"
-              title="AI Presets"
+              className="px-4 py-2 bg-purple-500/90 hover:bg-purple-500 text-white rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-purple-500/20"
+              title="Genre Presets"
             >
               <Sparkles size={18} />
               Presets
@@ -144,18 +144,18 @@ export const Transport = () => {
 
             <button
               onClick={addTrack}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-all flex items-center gap-2"
+              className="px-4 py-2 bg-blue-500/90 hover:bg-blue-500 text-white rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-blue-500/20"
               title="Add track"
             >
               <Plus size={18} />
               Track
             </button>
 
-            <div className="w-px h-8 bg-gray-700 mx-2" />
+            <div className="w-px h-8 bg-gray-700/50 mx-2" />
 
             <button
               onClick={saveProject}
-              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-all flex items-center gap-2"
+              className="px-4 py-2 bg-gray-700/50 hover:bg-gray-600/60 text-gray-200 rounded-lg transition-all flex items-center gap-2"
               title="Save project"
             >
               <Save size={18} />
@@ -163,7 +163,7 @@ export const Transport = () => {
 
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-all flex items-center gap-2"
+              className="px-4 py-2 bg-gray-700/50 hover:bg-gray-600/60 text-gray-200 rounded-lg transition-all flex items-center gap-2"
               title="Load project"
             >
               <FolderOpen size={18} />
@@ -179,7 +179,7 @@ export const Transport = () => {
 
             <button
               onClick={() => setShowSettings(true)}
-              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-all"
+              className="px-4 py-2 bg-gray-700/50 hover:bg-gray-600/60 text-gray-200 rounded-lg transition-all"
               title="Settings"
             >
               <Settings size={18} />

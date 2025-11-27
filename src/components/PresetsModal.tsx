@@ -76,13 +76,13 @@ export const PresetsModal = () => {
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-8">
-      <div className="bg-gray-800 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden border-2 border-gray-700">
+      <div className="bg-[#1a1f2e] rounded-2xl shadow-2xl max-w-4xl w-full max-h-[80vh] overflow-hidden border border-gray-700/50">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-700">
           <div>
-            <h2 className="text-2xl font-bold text-white">AI-Powered Presets</h2>
+            <h2 className="text-2xl font-bold text-white">Genre Presets</h2>
             <p className="text-sm text-gray-400 mt-1">
-              Start with a genre template and customize to your taste
+              Start with a pre-made genre template and customize to your taste
             </p>
           </div>
           <button

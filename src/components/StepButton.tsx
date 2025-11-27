@@ -32,24 +32,31 @@ export const StepButton = ({
     <button
       className={`
         relative w-full aspect-square rounded-md transition-all duration-150
-        border-2 select-none
-        ${step.active ? 'border-white' : 'border-gray-700'}
-        ${isCurrent && isPlaying ? 'ring-2 ring-white ring-offset-2 ring-offset-gray-900' : ''}
+        border select-none
+        ${step.active ? 'border-white/60' : 'border-gray-700/50'}
+        ${isCurrent && isPlaying ? 'ring-2 ring-white/80 ring-offset-2 ring-offset-[#0f1419]' : ''}
         ${step.active ? 'shadow-lg' : ''}
-        hover:border-gray-400
+        hover:border-gray-400/70
       `}
       style={{
         backgroundColor: step.active ? trackColor : 'transparent',
         opacity: step.active ? (step.velocity / 127) * 0.8 + 0.2 : 0.3,
       }}
-      onMouseDown={(e) => {
-        if (e.button === 0) onToggle();
-      }}
       onClick={(e) => {
         e.stopPropagation();
-        onClick();
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const isCorner = (x < rect.width * 0.3 || x > rect.width * 0.7) &&
+                        (y < rect.height * 0.3 || y > rect.height * 0.7);
+
+        if (isCorner) {
+          onClick();
+        } else {
+          onToggle();
+        }
       }}
-      title={`Step ${stepIndex + 1}${step.active ? ` • Vel: ${step.velocity} • Gate: ${step.gate}%` : ''}`}
+      title={`Step ${stepIndex + 1}${step.active ? ` • Vel: ${step.velocity} • Gate: ${step.gate}%` : ''}\nClick center to toggle, corners to edit`}
     >
       {/* Step number indicator */}
       <div className="absolute top-0.5 left-1 text-[8px] text-gray-500 font-mono">

@@ -53,8 +53,8 @@ export const Track = ({ track, isPlaying }: TrackProps) => {
 
   return (
     <div
-      className="bg-gray-800 rounded-xl p-4 shadow-xl border-2 transition-all"
-      style={{ borderColor: effectivelyMuted ? '#374151' : track.color }}
+      className="bg-[#1a1f2e] rounded-xl p-4 shadow-xl border transition-all"
+      style={{ borderColor: effectivelyMuted ? '#374151' : track.color, borderWidth: '1px' }}
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
@@ -63,7 +63,7 @@ export const Track = ({ track, isPlaying }: TrackProps) => {
             type="text"
             value={track.name}
             onChange={(e) => updateTrack(track.id, { name: e.target.value })}
-            className="bg-gray-700 text-white px-2 py-1 rounded text-sm font-medium focus:outline-none focus:ring-2 focus:ring-white"
+            className="bg-gray-800/50 text-white px-2 py-1 rounded text-sm font-medium border border-gray-700/50 focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50"
             style={{ maxWidth: '120px' }}
           />
 
@@ -78,7 +78,7 @@ export const Track = ({ track, isPlaying }: TrackProps) => {
                   midiDeviceName: device?.name || 'Not assigned',
                 });
               }}
-              className="bg-gray-700 text-white px-2 py-1 rounded text-xs focus:outline-none focus:ring-1 focus:ring-white"
+              className="bg-gray-800/50 text-white px-2 py-1 rounded text-xs border border-gray-700/50 focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50"
             >
               <option value="">No device</option>
               {outputDevices.map(device => (
@@ -96,7 +96,7 @@ export const Track = ({ track, isPlaying }: TrackProps) => {
               onChange={(e) => updateTrack(track.id, { midiNote: parseInt(e.target.value) })}
               min={0}
               max={127}
-              className="bg-gray-700 text-white px-2 py-1 rounded text-xs w-14 focus:outline-none focus:ring-1 focus:ring-white"
+              className="bg-gray-800/50 text-white px-2 py-1 rounded text-xs w-14 border border-gray-700/50 focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50"
             />
 
             <span className="text-gray-500">Ch</span>
@@ -107,7 +107,7 @@ export const Track = ({ track, isPlaying }: TrackProps) => {
               onChange={(e) => updateTrack(track.id, { midiChannel: parseInt(e.target.value) })}
               min={1}
               max={16}
-              className="bg-gray-700 text-white px-2 py-1 rounded text-xs w-12 focus:outline-none focus:ring-1 focus:ring-white"
+              className="bg-gray-800/50 text-white px-2 py-1 rounded text-xs w-12 border border-gray-700/50 focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50"
             />
           </div>
         </div>
@@ -117,7 +117,7 @@ export const Track = ({ track, isPlaying }: TrackProps) => {
           <select
             value={track.clockDivider}
             onChange={(e) => updateTrack(track.id, { clockDivider: parseFloat(e.target.value) })}
-            className="bg-gray-700 text-white px-2 py-1 rounded text-xs focus:outline-none focus:ring-1 focus:ring-white"
+            className="bg-gray-800/50 text-white px-2 py-1 rounded text-xs border border-gray-700/50 focus:outline-none focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50"
             title="Clock multiplier/divider"
           >
             <option value={0.25}>1/16</option>
