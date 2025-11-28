@@ -27,6 +27,7 @@ interface AppState {
   // UI
   showSettings: boolean;
   showPresets: boolean;
+  showHelp: boolean;
 
   // Actions
   initializeMIDI: () => Promise<void>;
@@ -59,6 +60,7 @@ interface AppState {
 
   setShowSettings: (show: boolean) => void;
   setShowPresets: (show: boolean) => void;
+  setShowHelp: (show: boolean) => void;
 }
 
 const createDefaultStep = (): Step => ({
@@ -137,6 +139,7 @@ export const useStore = create<AppState>((set, get) => ({
   currentSceneId: null,
   showSettings: false,
   showPresets: false,
+  showHelp: false,
 
   // Actions
   initializeMIDI: async () => {
@@ -422,4 +425,5 @@ export const useStore = create<AppState>((set, get) => ({
 
   setShowSettings: (show) => set({ showSettings: show }),
   setShowPresets: (show) => set({ showPresets: show }),
+  setShowHelp: (show) => set({ showHelp: show }),
 }));

@@ -1,4 +1,4 @@
-import { Play, Pause, RotateCcw, Plus, Save, FolderOpen, Sparkles, Settings } from 'lucide-react';
+import { Play, Pause, RotateCcw, Plus, Save, FolderOpen, Sparkles, Settings, HelpCircle } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { useRef } from 'react';
 
@@ -17,6 +17,7 @@ export const Transport = () => {
     saveProject,
     setShowPresets,
     setShowSettings,
+    setShowHelp,
   } = useStore();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -175,6 +176,14 @@ export const Transport = () => {
               title="Settings"
             >
               <Settings size={18} />
+            </button>
+
+            <button
+              onClick={() => setShowHelp(true)}
+              className="px-4 py-2 bg-blue-600/80 hover:bg-blue-500 text-white rounded-lg transition-all"
+              title="User Guide"
+            >
+              <HelpCircle size={18} />
             </button>
           </div>
         </div>

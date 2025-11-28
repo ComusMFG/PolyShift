@@ -234,18 +234,21 @@ export const Track = ({ track, isPlaying }: TrackProps) => {
           {/* Solo */}
           <button
             onClick={handleSoloToggle}
-            className={`px-3 py-1 rounded text-xs font-medium transition-all ${
+            className={`px-3 py-1 rounded text-xs font-bold transition-all border-2 ${
               track.solo
-                ? 'bg-yellow-500 text-black shadow-lg shadow-yellow-500/50 animate-pulse'
-                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                ? 'bg-yellow-400 text-black border-yellow-600 shadow-lg shadow-yellow-500/50 ring-2 ring-yellow-300'
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600 border-gray-600'
             }`}
             onContextMenu={(e) => {
               e.preventDefault();
               startMIDILearn(track.id, 'solo');
             }}
-            title={`Solo ${track.solo ? '(ACTIVE)' : ''} ${track.soloLearnNote ? `Note: ${track.soloLearnNote}` : '(right-click to learn)'}`}
+            title={`Solo ${track.solo ? '(ACTIVE - Only this track plays)' : ''} ${track.soloLearnNote ? `Note: ${track.soloLearnNote}` : '(right-click to learn)'}`}
           >
-            <Radio size={14} className={track.solo ? 'fill-current' : ''} />
+            <div className="flex items-center gap-1">
+              <Radio size={14} className={track.solo ? 'fill-current' : ''} />
+              {track.solo && <span className="animate-pulse">SOLO</span>}
+            </div>
           </button>
 
           {/* Record Arm */}
